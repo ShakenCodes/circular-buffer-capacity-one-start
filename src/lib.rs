@@ -7,7 +7,7 @@ impl CircularBuffer {
         CircularBuffer { num_elem: 0 }
     }
     pub fn is_empty(&self) -> bool { self.num_elem == 0 }
-    pub fn is_full(&self) -> bool { false }
+    pub fn is_full(&self) -> bool { self.num_elem > 0 }
     pub fn put(&mut self, _: i32) -> bool {
         self.num_elem = self.num_elem + 1;
         true
@@ -29,5 +29,6 @@ mod tests {
         let mut b = CircularBuffer::new(1);
         assert_eq!(true, b.put(42));
         assert_eq!(false, b.is_empty());
+        assert_eq!(true, b.is_full());
     }
 }
