@@ -101,6 +101,7 @@ mod tests {
         assert!(b.put(42));
         assert!(b.put(44));
         assert_eq!(false, b.is_empty());
+        assert_eq!(true, b.is_full());
     }
     #[test]
     fn given_capacity_twe_with_two_puts_when_get_twice_then_return_put_values() {
