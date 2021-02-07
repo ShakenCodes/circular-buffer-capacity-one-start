@@ -12,6 +12,7 @@ impl CircularBuffer {
         self.num_elem = self.num_elem + 1;
         true
     }
+    pub fn get(&self) -> i32 { i32::MIN }
 }
 
 #[cfg(test)]
@@ -30,5 +31,10 @@ mod tests {
         assert_eq!(true, b.put(42));
         assert_eq!(false, b.is_empty());
         assert_eq!(true, b.is_full());
+    }
+    #[test]
+    fn given_capacity_one_when_get_then_return_min_int() {
+        let b = CircularBuffer::new(1);
+        assert_eq!(i32::MIN, b.get());
     }
 }
