@@ -29,7 +29,7 @@ impl CircularBuffer {
         if self.is_empty() { return i32::MIN }
         self.num_elem = self.num_elem - 1;
         let v = self.elems[self.at_out];
-        self.at_out = self.at_out + 1;
+        self.at_out = CircularBuffer::increment_and_clip(self.at_out, self.capacity);
         v
     }
     fn increment_and_clip(n: usize, c: usize) -> usize {
@@ -103,6 +103,20 @@ mod tests {
         assert!(b.put(v2));
         b.get();
         assert!(b.put(44));
+        assert_eq!(v2, b.get());
+    }
+    #[test]
+    fn given_capacity_twe_with_two_puts_two_gets_two_puts_when_get_twice_then_return_put_values() {
+        let mut b = CircularBuffer::new(2);
+        assert!(b.put(42));
+        assert!(b.put(44));
+        b.get();
+        b.get();
+        let v1 = -11;
+        let v2 = 99;
+        assert!(b.put(v1));
+        assert!(b.put(v2));
+        assert_eq!(v1, b.get());
         assert_eq!(v2, b.get());
     }
 }
