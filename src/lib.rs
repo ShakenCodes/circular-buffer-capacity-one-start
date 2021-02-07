@@ -43,7 +43,7 @@ mod tests {
     fn given_capacity_one_with_one_put_when_get_then_return_value_put() {
         let mut b = CircularBuffer::new(1);
         let v = 99;
-        assert_eq!(true, b.put(v));
+        assert!(b.put(v));
         assert_eq!(v, b.get());
     }
 }
