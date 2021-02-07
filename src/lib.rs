@@ -15,7 +15,7 @@ impl CircularBuffer {
         true
     }
     pub fn get(&mut self) -> i32 {
-        if self.num_elem == 0 { return i32::MIN }
+        if self.is_empty() { return i32::MIN }
         self.num_elem = self.num_elem - 1;
         self.elem
     }
