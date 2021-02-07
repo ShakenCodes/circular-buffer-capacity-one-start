@@ -51,10 +51,11 @@ mod tests {
         assert_eq!(v, b.get());
     }
     #[test]
-    fn given_capacity_one_with_one_put_when_get_then_is_empty_true() {
+    fn given_capacity_one_with_one_put_when_get_then_is_empty_true_is_full_false() {
         let mut b = CircularBuffer::new(1);
         assert!(b.put(42));
         b.get();
         assert_eq!(true, b.is_empty());
+        assert_eq!(false, b.is_full());
     }
 }
