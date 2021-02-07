@@ -58,4 +58,11 @@ mod tests {
         assert_eq!(true, b.is_empty());
         assert_eq!(false, b.is_full());
     }
+    #[test]
+    fn given_capacity_one_with_one_put_and_get_when_get_then_return_int_min() {
+        let mut b = CircularBuffer::new(1);
+        assert!(b.put(42));
+        b.get();
+        assert_eq!(i32::MIN, b.get());
+    }
 }
