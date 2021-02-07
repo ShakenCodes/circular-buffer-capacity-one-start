@@ -156,6 +156,22 @@ mod tests {
         assert_eq!(false, b.is_empty());
         assert_eq!(true, b.is_full());
     }
+    #[test]
+    fn when_create_capacity_zero_then_is_full_true_is_empty_true() {
+        let b = CircularBuffer::new(0);
+        assert!(b.is_full());
+        assert!(b.is_empty());
+    }
+    #[test]
+    fn given_capacity_zero_when_put_then_return_false() {
+        let mut b = CircularBuffer::new(0);
+        assert_eq!(false, b.put(42));
+    }
+    #[test]
+    fn given_capacity_zero_when_get_then_return_min_int() {
+        let mut b = CircularBuffer::new(0);
+        assert_eq!(i32::MIN, b.get());
+    }
 
     fn create_full_buffer(c: usize) -> CircularBuffer {
         let mut b = CircularBuffer::new(c);
