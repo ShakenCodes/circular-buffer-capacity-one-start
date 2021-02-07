@@ -98,8 +98,7 @@ mod tests {
     #[test]
     fn given_capacity_two_with_two_puts_two_gets_if_empty_true_if_full_empty() {
         let mut b = create_full_buffer(2);
-        b.get();
-        b.get();
+        get_n_times(&mut b, 2);
         assert_eq!(true, b.is_empty());
         assert_eq!(false, b.is_full());
     }
@@ -130,6 +129,11 @@ mod tests {
         let mut b = CircularBuffer::new(c);
         put_n_times(&mut b, c);
         b
+    }
+    fn get_n_times(b: &mut CircularBuffer, n: usize) {
+        for _ in 0..n {
+            b.get();
+        }
     }
     fn put_n_times(b: &mut CircularBuffer, n: usize) {
         for i in 42..(42 + n) {
