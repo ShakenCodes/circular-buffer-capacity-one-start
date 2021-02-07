@@ -96,6 +96,13 @@ mod tests {
         assert_eq!(false, b.put(46));
     }
     #[test]
+    fn given_capacity_twe_with_two_puts_if_empty_false() {
+        let mut b = CircularBuffer::new(2);
+        assert!(b.put(42));
+        assert!(b.put(44));
+        assert_eq!(false, b.is_empty());
+    }
+    #[test]
     fn given_capacity_twe_with_two_puts_when_get_twice_then_return_put_values() {
         let mut b = CircularBuffer::new(2);
         let v2 = 99;
