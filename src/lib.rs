@@ -25,7 +25,7 @@ mod tests {
         assert_eq!(false, b.is_full());
     }
     #[test]
-    fn given_capacity_one_when_put_then_return_true_is_empty_false() {
+    fn given_capacity_one_when_put_then_return_true_is_empty_false_is_full_true() {
         let mut b = CircularBuffer::new(1);
         assert_eq!(true, b.put(42));
         assert_eq!(false, b.is_empty());
