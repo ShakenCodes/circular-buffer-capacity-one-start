@@ -1,18 +1,20 @@
 struct CircularBuffer {
     num_elem: usize,
+    elem: i32,
 }
 
 impl CircularBuffer {
     pub fn new(_: usize) -> CircularBuffer {
-        CircularBuffer { num_elem: 0 }
+        CircularBuffer { num_elem: 0, elem: i32::MIN }
     }
     pub fn is_empty(&self) -> bool { self.num_elem == 0 }
     pub fn is_full(&self) -> bool { self.num_elem > 0 }
-    pub fn put(&mut self, _: i32) -> bool {
+    pub fn put(&mut self, v: i32) -> bool {
         self.num_elem = self.num_elem + 1;
+        self.elem = v;
         true
     }
-    pub fn get(&self) -> i32 { i32::MIN }
+    pub fn get(&self) -> i32 { self.elem }
 }
 
 #[cfg(test)]
@@ -36,5 +38,12 @@ mod tests {
     fn given_capacity_one_when_get_then_return_min_int() {
         let b = CircularBuffer::new(1);
         assert_eq!(i32::MIN, b.get());
+    }
+    #[test]
+    fn given_capacity_one_with_one_put_when_get_then_return_value_put() {
+        let mut b = CircularBuffer::new(1);
+        let v = 99;
+        assert_eq!(true, b.put(v));
+        assert_eq!(v, b.get());
     }
 }
