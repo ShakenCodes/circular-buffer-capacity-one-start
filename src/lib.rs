@@ -124,6 +124,38 @@ mod tests {
         assert_eq!(v1, b.get());
         assert_eq!(v2, b.get());
     }
+    #[test]
+    fn given_capacity_and_filled_and_emptied_twice_when_put_and_get_then_last_value_matches() {
+        let mut b = create_full_buffer(10);
+        get_n_times(&mut b, 10);
+        put_n_times(&mut b, 10);
+        get_n_times(&mut b, 10);
+
+        let v = 99;
+        assert!(b.put(v));
+        assert_eq!(v, b.get());
+        assert_eq!(true, b.is_empty());
+        assert_eq!(false, b.is_full());
+    }
+    #[test]
+    fn given_capacity_and_filled_and_emptied_twice_then_is_empty_true_is_full_false() {
+        let mut b = create_full_buffer(10);
+        get_n_times(&mut b, 10);
+        put_n_times(&mut b, 10);
+        get_n_times(&mut b, 10);
+        assert_eq!(true, b.is_empty());
+        assert_eq!(false, b.is_full());
+    }
+    #[test]
+    fn given_capacity_and_filled_and_emptied_twice_when_filled_again_then_is_empty_false_is_full_true() {
+        let mut b = create_full_buffer(10);
+        get_n_times(&mut b, 10);
+        put_n_times(&mut b, 10);
+        get_n_times(&mut b, 10);
+        put_n_times(&mut b, 10);
+        assert_eq!(false, b.is_empty());
+        assert_eq!(true, b.is_full());
+    }
 
     fn create_full_buffer(c: usize) -> CircularBuffer {
         let mut b = CircularBuffer::new(c);
