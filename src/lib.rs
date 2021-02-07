@@ -1,14 +1,19 @@
 struct CircularBuffer {
+    capacity: usize,
     num_elem: usize,
     elem: i32,
 }
 
 impl CircularBuffer {
-    pub fn new(_: usize) -> CircularBuffer {
-        CircularBuffer { num_elem: 0, elem: i32::MIN }
+    pub fn new(c: usize) -> CircularBuffer {
+        CircularBuffer {
+            capacity: c,
+            num_elem: 0,
+            elem: i32::MIN
+        }
     }
     pub fn is_empty(&self) -> bool { self.num_elem == 0 }
-    pub fn is_full(&self) -> bool { self.num_elem > 0 }
+    pub fn is_full(&self) -> bool { self.num_elem >= self.capacity }
     pub fn put(&mut self, v: i32) -> bool {
         if self.is_full() { return false }
         self.num_elem = self.num_elem + 1;
@@ -71,5 +76,12 @@ mod tests {
         let mut b = CircularBuffer::new(1);
         assert!(b.put(42));
         assert_eq!(false, b.put(44));
+    }
+    #[test]
+    fn given_capacity_twe_with_two_puts_when_put_then_return_false() {
+        let mut b = CircularBuffer::new(2);
+        assert!(b.put(42));
+        assert!(b.put(44));
+        assert_eq!(false, b.put(46));
     }
 }
